@@ -1,8 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 
 from apps.paste.views import PasteViewSet
 
+
+router = routers.SimpleRouter()
+router.register(r'paste', PasteViewSet)
+
 urlpatterns = [
-    path('pastelist/', PasteViewSet.as_view({'get': 'list'}), name='paste-list'),
-    path('paste/<int:pk>', PasteViewSet.as_view({'get': 'retrieve'}), name='paste')
+    path('', include(router.urls))
 ]
